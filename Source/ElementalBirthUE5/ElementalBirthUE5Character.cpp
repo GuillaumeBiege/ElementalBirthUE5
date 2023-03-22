@@ -76,7 +76,7 @@ void AElementalBirthUE5Character::SetupPlayerInputComponent(class UInputComponen
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &AElementalBirthUE5Character::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &AElementalBirthUE5Character::TouchStopped);
 
-	PlayerInputComponent->BindAction("Test", IE_Released, this, &AElementalBirthUE5Character::TestInput);
+	PlayerInputComponent->BindAction("Dash", IE_Released, this, &AElementalBirthUE5Character::Dash);
 }
 
 void AElementalBirthUE5Character::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
@@ -89,10 +89,9 @@ void AElementalBirthUE5Character::TouchStopped(ETouchIndex::Type FingerIndex, FV
 	StopJumping();
 }
 
-void AElementalBirthUE5Character::TestInput()
+void AElementalBirthUE5Character::Dash()
 {
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Moka !"));
+	LaunchCharacter(GetActorForwardVector() * DashSpeed, false, false);
 }
 
 void AElementalBirthUE5Character::TurnAtRate(float Rate)

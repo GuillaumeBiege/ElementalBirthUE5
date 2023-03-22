@@ -25,6 +25,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
+	UPROPERTY(VisibleAnywhere, Category = PlayerMovementStat)
+	float DashSpeed = 1500.f;
+
 protected:
 
 	/** Called for forwards/backward input */
@@ -51,7 +54,7 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-	void TestInput();
+	void Dash();
 
 protected:
 	// APawn interface
