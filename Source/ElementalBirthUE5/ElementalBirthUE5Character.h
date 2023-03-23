@@ -25,8 +25,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	UPROPERTY(VisibleAnywhere, Category = PlayerMovementStat)
+	UPROPERTY(EditAnywhere, Category = PlayerMovementStat)
 	float DashSpeed = 1500.f;
+
+
+	//Density Management
+	UPROPERTY(EditAnywhere,  Category = DensityElem)
+	float DensityElem = 0.5f;
 
 protected:
 

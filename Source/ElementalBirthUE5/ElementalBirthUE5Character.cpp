@@ -11,6 +11,8 @@
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
 
+ASomeCharaAElementalBirthUE5Charactercter::ASomeCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.DoNotCreateDefaultSubobject(ACharacter::MeshComponentName))
+
 AElementalBirthUE5Character::AElementalBirthUE5Character()
 {
 	// Set size for collision capsule
@@ -91,7 +93,8 @@ void AElementalBirthUE5Character::TouchStopped(ETouchIndex::Type FingerIndex, FV
 
 void AElementalBirthUE5Character::Dash()
 {
-	LaunchCharacter(GetActorForwardVector() * DashSpeed, false, false);
+	//Dash speed depend on the density of the character
+	LaunchCharacter(GetActorForwardVector() * (DashSpeed * (2.f - DensityElem)), false, false);
 }
 
 void AElementalBirthUE5Character::TurnAtRate(float Rate)
