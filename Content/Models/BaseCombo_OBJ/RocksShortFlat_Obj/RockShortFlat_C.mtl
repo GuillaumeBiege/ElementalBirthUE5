@@ -1,0 +1,11 @@
+# Created with Anim8or 1.00
+# Object "ShortFlatRock_C":
+
+newmtl Short_Rocks___Base
+Ka 0.114 0.114 0.114
+Kd 0.51 0.51 0.51
+Ks 0.761 0.761 0.761
+Ns 738.6
+map_Kd ShortFlatRock_Base-Diffuse.png
+map_Ks ShortFlatRock_Base-Specular.png
+

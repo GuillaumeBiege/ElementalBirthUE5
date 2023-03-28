@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
 
-ASomeCharaAElementalBirthUE5Charactercter::ASomeCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.DoNotCreateDefaultSubobject(ACharacter::MeshComponentName))
+//AElementalBirthUE5Character::AElementalBirthUE5Character(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.DoNotCreateDefaultSubobject(ACharacter::MeshComponentName))
 
 AElementalBirthUE5Character::AElementalBirthUE5Character()
 {

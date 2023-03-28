@@ -1,0 +1,11 @@
+# Created with Anim8or 1.00
+# Object "RockSet06-D":
+
+newmtl RockSet_06___Base
+Ka 0.416 0.416 0.416
+Kd 0.878 0.878 0.878
+Ks 1 1 1
+Ns 738.6
+map_Kd RockSet06Base-Diffuse.png
+map_Ks RockSet06Base-Specular.png
+
