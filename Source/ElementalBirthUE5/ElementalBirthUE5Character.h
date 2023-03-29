@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "ElementalBirthUE5Character.generated.h"
 
+class UNiagaraSystem;
+
 UCLASS(config=Game)
 class AElementalBirthUE5Character : public ACharacter
 {
@@ -20,6 +22,11 @@ class AElementalBirthUE5Character : public ACharacter
 	class UCameraComponent* FollowCamera;
 public:
 	AElementalBirthUE5Character();
+
+	
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "FX", meta = (AllowPrivateAccess = "true"))
+	//class UNiagaraSystem* FXTargetRock;
+
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)

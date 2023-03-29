@@ -7,6 +7,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+//#include "Niagara/Public/NiagaraFunctionLibrary.h"
+//#include "../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
@@ -48,6 +50,9 @@ AElementalBirthUE5Character::AElementalBirthUE5Character()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	// Create a FX target for the player rock body
+	//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), FXTargetRock, GetActorLocation());
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
