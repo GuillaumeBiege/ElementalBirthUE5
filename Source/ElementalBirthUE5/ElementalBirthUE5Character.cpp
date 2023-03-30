@@ -100,6 +100,47 @@ void AElementalBirthUE5Character::Dash()
 {
 	//Dash speed depend on the density of the character
 	LaunchCharacter(GetActorForwardVector() * (DashSpeed * (2.f - DensityElem)), false, false);
+
+	LaunchDashDurationTimer();
+}
+
+void AElementalBirthUE5Character::LaunchDashDurationTimer()
+{
+	TimerDurationDashCurrent = 1.f;
+}
+
+
+void AElementalBirthUE5Character::LaunchDashSlowDownTimer()
+{
+	TimerSlowDownDashCurrent = 1.f;
+}
+
+void AElementalBirthUE5Character::CalculateTimer(float _DeltaTime, float* _TimerCurrent, float* _TimerMax)
+{
+	*_TimerCurrent -= _DeltaTime / *_TimerMax;
+}
+
+void AElementalBirthUE5Character::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+#pragma region DashTimers
+	if (TimerDurationDashCurrent > 0.f)
+	{
+		CalculateTimer(_DeltaTime, &TimerDurationDashCurrent, &TimerDurationDashMax);
+	}
+
+	if (TimerSlowDownDashCurrent > 0.f)
+	{
+		CalculateTimer(_DeltaTime, &TimerSlowDownDashCurrent, &TimerSlowDownDashMax);
+
+		UCharacterMovementComponent* charMove = this->GetOwner()->FindComponentByClass<UCharacterMovementComponent>();
+
+		//charMove.vel
+	}
+#pragma endregion
+
+	
 }
 
 void AElementalBirthUE5Character::TurnAtRate(float Rate)

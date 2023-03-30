@@ -32,9 +32,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	UPROPERTY(EditAnywhere, Category = PlayerMovementStat)
-	float DashSpeed = 1500.f;
-
+	
 
 	//Density Management
 	UPROPERTY(EditAnywhere,  Category = DensityElem)
@@ -66,7 +64,37 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
+#pragma region MyRegion
+
+	//Make the Player dash 
 	void Dash();
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+	float DashSpeed = 1500.f;
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+		float TimerDurationDashMax = 1.f;
+	UPROPERTY(VisibleAnywhere, Category = Dash)
+		float TimerDurationDashCurrent = 0.f;
+
+	void LaunchDashDurationTimer();
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+		float TimerSlowDownDashMax = 1.f;
+	UPROPERTY(VisibleAnywhere, Category = Dash)
+		float TimerSlowDownDashCurrent = 0.f;
+
+	void LaunchDashSlowDownTimer();
+	
+
+
+#pragma endregion
+
+	void CalculateTimer(float _DeltaTime, float* _TimerCurrent, float* _TimerMax);
+
+	virtual void Tick(float DeltaSeconds) override;
+
+	
 
 protected:
 	// APawn interface
