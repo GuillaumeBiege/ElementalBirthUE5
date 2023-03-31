@@ -7,6 +7,7 @@
 #include "ElementalBirthUE5Character.generated.h"
 
 class UNiagaraSystem;
+class UTimerHandler;
 
 UCLASS(config=Game)
 class AElementalBirthUE5Character : public ACharacter
@@ -73,16 +74,16 @@ protected:
 	float DashSpeed = 1500.f;
 
 	UPROPERTY(EditAnywhere, Category = Dash)
-		float TimerDurationDashMax = 1.f;
-	UPROPERTY(VisibleAnywhere, Category = Dash)
-		float TimerDurationDashCurrent = 0.f;
+	float DashDuration = 1.f;
+	UPROPERTY(EditAnywhere, Category = Dash)
+	class UTimerHandler* TimerHandlerDashDuration = NULL;
 
 	void LaunchDashDurationTimer();
 
 	UPROPERTY(EditAnywhere, Category = Dash)
-		float TimerSlowDownDashMax = 1.f;
-	UPROPERTY(VisibleAnywhere, Category = Dash)
-		float TimerSlowDownDashCurrent = 0.f;
+	float DashSlowDown = 1.f;
+	UPROPERTY(EditAnywhere, Category = Dash)
+	class UTimerHandler* TimerHandlerDashSlowDown = NULL;
 
 	void LaunchDashSlowDownTimer();
 	
@@ -90,7 +91,7 @@ protected:
 
 #pragma endregion
 
-	void CalculateTimer(float _DeltaTime, float* _TimerCurrent, float* _TimerMax);
+	void CalculateTimers(float _DeltaTime);
 
 	virtual void Tick(float DeltaSeconds) override;
 

@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 //#include "Niagara/Public/NiagaraFunctionLibrary.h"
 //#include "../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
+#include "Public/TimerHandler.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
@@ -56,6 +57,11 @@ AElementalBirthUE5Character::AElementalBirthUE5Character()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+
+	//Create TimerHandler
+	TimerHandlerDashDuration = new TimerHandlerDashDuration(DashDuration);
+	TimerHandlerDashSlowDown = new TimerHandlerDashSlowDown(DashSlowDown);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -106,18 +112,24 @@ void AElementalBirthUE5Character::Dash()
 
 void AElementalBirthUE5Character::LaunchDashDurationTimer()
 {
-	TimerDurationDashCurrent = 1.f;
+	if (TimerHandlerDashDuration)
+		TimerHandlerDashDuration->LauncheTimer();
 }
 
 
 void AElementalBirthUE5Character::LaunchDashSlowDownTimer()
 {
-	TimerSlowDownDashCurrent = 1.f;
+	if (TimerHandlerDashSlowDown)
+		TimerHandlerDashSlowDown->LauncheTimer();
 }
 
-void AElementalBirthUE5Character::CalculateTimer(float _DeltaTime, float* _TimerCurrent, float* _TimerMax)
+void AElementalBirthUE5Character::CalculateTimers(float _DeltaTime)
 {
-	*_TimerCurrent -= _DeltaTime / *_TimerMax;
+	if (TimerHandlerDashDuration)
+		TimerHandlerDashDuration->CalculateTimer(_DeltaTime);
+
+	if (TimerHandlerDashSlowDown)
+		TimerHandlerDashSlowDown->CalculateTimer(_DeltaTime);
 }
 
 void AElementalBirthUE5Character::Tick(float _DeltaTime)
@@ -125,19 +137,18 @@ void AElementalBirthUE5Character::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 #pragma region DashTimers
-	if (TimerDurationDashCurrent > 0.f)
+	CalculateTimers(_DeltaTime);
+
+	if (TimerHandlerDashDuration->HasEndEventBeenCalled)
 	{
-		CalculateTimer(_DeltaTime, &TimerDurationDashCurrent, &TimerDurationDashMax);
+		LaunchDashSlowDownTimer();
 	}
 
-	if (TimerSlowDownDashCurrent > 0.f)
+	if (TimerHandlerDashSlowDown->IsTimerRunning)
 	{
-		CalculateTimer(_DeltaTime, &TimerSlowDownDashCurrent, &TimerSlowDownDashMax);
-
-		UCharacterMovementComponent* charMove = this->GetOwner()->FindComponentByClass<UCharacterMovementComponent>();
-
-		//charMove.vel
+		//Create slow down behaviour
 	}
+
 #pragma endregion
 
 	
