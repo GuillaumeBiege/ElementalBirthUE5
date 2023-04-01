@@ -7,7 +7,7 @@
 #include "ElementalBirthUE5Character.generated.h"
 
 class UNiagaraSystem;
-class UTimerHandler;
+class UTimerHandling;
 
 UCLASS(config=Game)
 class AElementalBirthUE5Character : public ACharacter
@@ -76,14 +76,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Dash)
 	float DashDuration = 1.f;
 	UPROPERTY(EditAnywhere, Category = Dash)
-	class UTimerHandler* TimerHandlerDashDuration = NULL;
+	class UTimerHandling* TimerHandlerDashDuration = NULL;
 
 	void LaunchDashDurationTimer();
 
 	UPROPERTY(EditAnywhere, Category = Dash)
 	float DashSlowDown = 1.f;
 	UPROPERTY(EditAnywhere, Category = Dash)
-	class UTimerHandler* TimerHandlerDashSlowDown = NULL;
+	class UTimerHandling* TimerHandlerDashSlowDown = NULL;
 
 	void LaunchDashSlowDownTimer();
 	

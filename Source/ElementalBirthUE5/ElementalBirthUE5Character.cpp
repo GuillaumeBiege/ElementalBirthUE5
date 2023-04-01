@@ -9,7 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 //#include "Niagara/Public/NiagaraFunctionLibrary.h"
 //#include "../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
-#include "Public/TimerHandler.h"
+#include "TimerHandling.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
@@ -60,8 +60,8 @@ AElementalBirthUE5Character::AElementalBirthUE5Character()
 
 
 	//Create TimerHandler
-	TimerHandlerDashDuration = new TimerHandlerDashDuration(DashDuration);
-	TimerHandlerDashSlowDown = new TimerHandlerDashSlowDown(DashSlowDown);
+	TimerHandlerDashDuration = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashDuration"));
+	TimerHandlerDashSlowDown = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashSlowDown"));
 }
 
 //////////////////////////////////////////////////////////////////////////
