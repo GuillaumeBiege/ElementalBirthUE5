@@ -30,8 +30,8 @@ public:
 
 	void CalculateTimer(float _deltaTime);
 
-	void LauncheTimer();
-	void LauncheTimer(float _timerMax);
+	void LaunchTimer();
+	void LaunchTimer(float _timerMax);
 
 	float GetRealTime();
 };

@@ -18,12 +18,12 @@ void UTimerHandling::CalculateTimer(float _deltaTime)
 
 }
 
-void UTimerHandling::LauncheTimer()
+void UTimerHandling::LaunchTimer()
 {
 	TimerCurrent = 1.f;
 }
 
-void UTimerHandling::LauncheTimer(float _timerMax)
+void UTimerHandling::LaunchTimer(float _timerMax)
 {
 	TimerMax = _timerMax;
 	TimerCurrent = 1.f;

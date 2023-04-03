@@ -9,7 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 //#include "Niagara/Public/NiagaraFunctionLibrary.h"
 //#include "../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
-#include "TimerHandling.h"
+#include "Public/TimerHandling.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
@@ -61,6 +61,7 @@ AElementalBirthUE5Character::AElementalBirthUE5Character()
 
 	//Create TimerHandler
 	TimerHandlerDashDuration = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashDuration"));
+
 	TimerHandlerDashSlowDown = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashSlowDown"));
 }
 
@@ -112,15 +113,18 @@ void AElementalBirthUE5Character::Dash()
 
 void AElementalBirthUE5Character::LaunchDashDurationTimer()
 {
-	if (TimerHandlerDashDuration)
-		TimerHandlerDashDuration->LauncheTimer();
+	if (TimerHandlerDashDuration != nullptr)
+	{
+		TimerHandlerDashDuration->LaunchTimer(20.f);
+	}
+	
 }
 
 
 void AElementalBirthUE5Character::LaunchDashSlowDownTimer()
 {
-	if (TimerHandlerDashSlowDown)
-		TimerHandlerDashSlowDown->LauncheTimer();
+	//if (TimerHandlerDashSlowDown)
+		//TimerHandlerDashSlowDown->LaunchTimer();
 }
 
 void AElementalBirthUE5Character::CalculateTimers(float _DeltaTime)
@@ -141,7 +145,7 @@ void AElementalBirthUE5Character::Tick(float _DeltaTime)
 
 	if (TimerHandlerDashDuration->HasEndEventBeenCalled)
 	{
-		LaunchDashSlowDownTimer();
+		//LaunchDashSlowDownTimer();
 	}
 
 	if (TimerHandlerDashSlowDown->IsTimerRunning)
