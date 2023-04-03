@@ -7,6 +7,7 @@
 #include "ElementalBirthUE5Character.generated.h"
 
 class UNiagaraSystem;
+class UTimerHandling;
 
 UCLASS(config=Game)
 class AElementalBirthUE5Character : public ACharacter
@@ -32,9 +33,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	UPROPERTY(EditAnywhere, Category = PlayerMovementStat)
-	float DashSpeed = 1500.f;
-
+	
 
 	//Density Management
 	UPROPERTY(EditAnywhere,  Category = DensityElem)
@@ -66,7 +65,37 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
+#pragma region MyRegion
+
+	//Make the Player dash 
 	void Dash();
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+	float DashSpeed = 1500.f;
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+	float DashDuration = 1.f;
+	UPROPERTY(EditAnywhere, Category = Dash)
+	class UTimerHandling* TimerHandlerDashDuration = NULL;
+
+	void LaunchDashDurationTimer();
+
+	UPROPERTY(EditAnywhere, Category = Dash)
+	float DashSlowDown = 1.f;
+	UPROPERTY(EditAnywhere, Category = Dash)
+	class UTimerHandling* TimerHandlerDashSlowDown = NULL;
+
+	void LaunchDashSlowDownTimer();
+	
+
+
+#pragma endregion
+
+	void CalculateTimers(float _DeltaTime);
+
+	virtual void Tick(float DeltaSeconds) override;
+
+	
 
 protected:
 	// APawn interface

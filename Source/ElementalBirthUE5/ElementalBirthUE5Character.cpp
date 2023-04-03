@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 //#include "Niagara/Public/NiagaraFunctionLibrary.h"
 //#include "../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
+#include "Public/TimerHandling.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AElementalBirthUE5Character
@@ -56,6 +57,12 @@ AElementalBirthUE5Character::AElementalBirthUE5Character()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+
+	//Create TimerHandler
+	TimerHandlerDashDuration = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashDuration"));
+
+	TimerHandlerDashSlowDown = NewObject<UTimerHandling>(this, UTimerHandling::StaticClass(), FName("TimerHandlerDashSlowDown"));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -100,6 +107,55 @@ void AElementalBirthUE5Character::Dash()
 {
 	//Dash speed depend on the density of the character
 	LaunchCharacter(GetActorForwardVector() * (DashSpeed * (2.f - DensityElem)), false, false);
+
+	LaunchDashDurationTimer();
+}
+
+void AElementalBirthUE5Character::LaunchDashDurationTimer()
+{
+	if (TimerHandlerDashDuration != nullptr)
+	{
+		TimerHandlerDashDuration->LaunchTimer(20.f);
+	}
+	
+}
+
+
+void AElementalBirthUE5Character::LaunchDashSlowDownTimer()
+{
+	//if (TimerHandlerDashSlowDown)
+		//TimerHandlerDashSlowDown->LaunchTimer();
+}
+
+void AElementalBirthUE5Character::CalculateTimers(float _DeltaTime)
+{
+	if (TimerHandlerDashDuration)
+		TimerHandlerDashDuration->CalculateTimer(_DeltaTime);
+
+	if (TimerHandlerDashSlowDown)
+		TimerHandlerDashSlowDown->CalculateTimer(_DeltaTime);
+}
+
+void AElementalBirthUE5Character::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+#pragma region DashTimers
+	CalculateTimers(_DeltaTime);
+
+	if (TimerHandlerDashDuration->HasEndEventBeenCalled)
+	{
+		//LaunchDashSlowDownTimer();
+	}
+
+	if (TimerHandlerDashSlowDown->IsTimerRunning)
+	{
+		//Create slow down behaviour
+	}
+
+#pragma endregion
+
+	
 }
 
 void AElementalBirthUE5Character::TurnAtRate(float Rate)
